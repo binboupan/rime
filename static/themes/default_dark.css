@@ -1,0 +1,58 @@
+/* CSS */
+:root {
+    font-family: Inter, sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+  }
+  @supports (font-variation-settings: normal) {
+    :root { font-family: InterVariable, sans-serif; }
+  }
+
+
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+    
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 1px solid #8fba60;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 5px;
+    height: 40px;
+    outline: none;
+    color: #8fba60;
+    background-color: #282c34;
+  }
+  
+  .searchTerm:focus{
+    color: #8fba60;
+  }
+ 
+
+body {
+    background-color: #282c34;
+    color: #d6d0ce;
+}
+
+.maincolor {
+    color: #d6d0ce;
+}
+
+.iconcolor { 
+    color: #d6d0ce;
+}
+
+.accentcolor {
+    color: #8fba60;
+}
+
+.main-container {
+  width: 80%;
+  margin: auto;
+ 
+}
