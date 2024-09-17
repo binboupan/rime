@@ -97,11 +97,6 @@ a {
 
 
 
-@media (max-width: 800px) {
-  .service-container {
-    flex-direction: column;
-  }
-}
 
 /* inter related css */
 
@@ -171,3 +166,18 @@ body {
   text-decoration: none;
 
 }
+
+
+
+@media (max-width: 800px) {
+  .service-container {
+    flex-direction: column;
+  }
+
+  .main-container {
+    width: 100%;
+    margin: none;
+   
+  }
+}
+
