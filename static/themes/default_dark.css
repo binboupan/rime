@@ -1,4 +1,110 @@
 /* CSS */
+
+svg {
+  fill: url(#mygradient);
+}
+
+#mygradient stop.start-color {
+  stop-color: #d6d0ce;
+}
+
+#mygradient stop.end-color {
+  stop-color: #585857;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+.service-container {
+  display: flex;
+  flex-direction: row;
+
+  text-align: center;
+  flex-wrap: wrap;
+  
+}
+
+a {
+  text-decoration: none;
+  
+}
+
+.service-card {
+  color: #d6d0ce;
+  text-decoration: none;
+  display: flex;
+  min-height: 70px;
+
+
+  /* You can change the online green color and side here */
+  border-radius: 5px;
+  
+  border-top: none;
+  border-left: none;
+    
+  border-bottom: none;
+  padding: 15px;
+ 
+  background-color: #282c34;
+  margin: 10px;
+  flex: 20%;
+  transition: transform 0.3s ease-in-out;
+ 
+ 
+}
+
+.service-icon {
+  float: left;
+  width: 35px;
+  height: 35px;
+}
+
+.service-card-titles {
+  
+ margin-left: 50px;
+ text-align: left;
+  height: 40px;
+ 
+ display: flex;
+  justify-content: center;
+ flex-direction: column;
+}
+
+
+
+.service-card-title {
+  flex: 1;
+  font-size: .875rem;
+}
+
+.service-card-subtitle {
+  flex: 1;
+    font-size: .75rem;  
+}
+.service-card:hover {
+  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
+.bottomright {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  font-size: 12px;
+}
+
+
+
+@media (max-width: 800px) {
+  .service-container {
+    flex-direction: column;
+  }
+}
+
+/* inter related css */
+
 :root {
     font-family: Inter, sans-serif;
     font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
@@ -8,6 +114,7 @@
   }
 
 
+/* search box styling*/
 
 .search {
     width: 100%;
@@ -33,9 +140,11 @@
     color: #8fba60;
   }
  
+/* theming */
 
 body {
-    background-color: #282c34;
+    background-color: #21242b;
+    
     color: #d6d0ce;
 }
 
@@ -55,4 +164,10 @@ body {
   width: 80%;
   margin: auto;
  
+}
+
+.footer-link{
+  color: #d6d0ce;
+  text-decoration: none;
+
 }

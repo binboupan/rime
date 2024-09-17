@@ -1,11 +1,19 @@
 <html></html>
 <head>
     <title>Rime</title>
-   <link href="static/themes/{{theme}}.css" rel="stylesheet"> 
+   <link href="static/themes/{{config['config']['theme']}}.css" rel="stylesheet"> 
    <link rel="stylesheet" href="static/fonts/inter.css">
-
+    
 </head>
 <body>
+    <svg width="0" height="0">
+        <defs>
+          <linearGradient id="mygradient">
+            <stop offset="0" class="start-color"/>
+            <stop offset="1" class="end-color"/>
+          </linearGradient>
+        </defs>
+      </svg>
     <div class="main-container">
         <form action="https://google.com/search" method="get">
         <div class="search">
@@ -14,9 +22,48 @@
             <input type="submit" style="display: none;">
          </div>
         </form>
-        <h1>Good afternoon!</h1>
-        
+
+        {% for service_category in config['services'] %}
+            <h1>{{ service_category}}</h1>
+            <div class="service-container">
+            {% for service in config['services'][service_category] %}
+                
+           
+
+            <a href="{{ config['services'][service_category][service]['url']}}" class="service-card" style="border-right: 2px solid {{ config['services'][service_category][service]['current_color']}};">
+                
+                <div class="service-card-wrapper" >
+                    
+                    <div class="service-icon">
+                        
+                        {%- include "icons/"+ config['services'][service_category][service]['icon'] +".svg" ignore missing -%}
+
+
+                    </div>
+                
+                    <div class="service-card-titles">
+                        <div class="service-card-title">{{ config['services'][service_category][service]['name']}}</div>
+                        <div class="service-card-subtitle">{{ config['services'][service_category][service]['subtitle']}}</div>
+                    </div>
+                </div>
+
+
+            </a>
+            {% endfor %}
+            </div>
+
+        {% endfor %}
+
+
+  
+          
+          </div>
     </div>
+
+    
+<div class="container">
+    <div class="bottomright"><a class="footer-link" href="https://github.com/binboupan/rime">Rime v{{version}}</a> </div></div>
+  </div>
     
 </body>
 </html>
