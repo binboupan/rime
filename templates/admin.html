@@ -1,0 +1,269 @@
+<html></html>
+<head>
+    <title>Rime - Admin</title>
+   <link href="static/themes/default.css" rel="stylesheet"> 
+   <link rel="stylesheet" href="static/fonts/inter.css">
+   <style>
+    /*
+ CSS for the main interaction
+*/
+
+input[type=text],input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #8fba60;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #ccc;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+
+.tabset > input[type="radio"] {
+  position: absolute;
+  left: -200vw;
+}
+
+.tabset .tab-panel {
+  display: none;
+}
+
+.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
+.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
+.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
+.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
+.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
+.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
+  display: block;
+}
+
+/*
+ Styling
+*/
+
+
+.tabset > label {
+  position: relative;
+  display: inline-block;
+  padding: 15px 15px 25px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tabset > label::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
+  width: 70%;
+  height: 4px;
+
+}
+
+input:focus-visible + label {
+  outline: 2px solid #8fba60);
+  border-radius: 3px;
+}
+
+.tabset > label:hover,
+.tabset > input:focus + label,
+.tabset > input:checked + label {
+  color: #8fba60;
+}
+
+.tabset > label:hover::after,
+.tabset > input:focus + label::after,
+.tabset > input:checked + label::after {
+  background: #8fba60;
+}
+
+.tabset > input:checked + label {
+  border-color: #ccc;
+  #border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+}
+
+.tab-panel {
+  padding: 30px 0;
+  border-top: 1px solid #ccc;
+}
+
+/*
+ Demo purposes only
+*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 30px;
+}
+
+.tabset {
+  max-width: 65em;
+}
+
+
+
+.rimeAdminTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.rimeAdminTable td, .rimeAdminTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.rimeAdminTable tr:nth-child(even){background-color: #585857;}
+.rimeAdminTable tr:nth-child(odd){background-color: #424242;}
+
+.rimeAdminTable tr:hover {background-color: #272727;}
+
+.rimeAdminTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #8fba60;
+  color: white;
+}
+
+
+   </style>
+</head>
+<body>
+    <svg width="0" height="0">
+        <defs>
+          <linearGradient id="mygradient">
+            <stop offset="0" class="start-color"/>
+            <stop offset="1" class="end-color"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    <div class="main-container">
+        <h1>Rime Settings</h1>
+      <div class="tabset">
+        <!-- Tab 1 -->
+        <input type="radio" name="tabset" id="tab1" aria-controls="general" checked>
+        <label for="tab1">General</label>
+        <!-- Tab 2 -->
+        <input type="radio" name="tabset" id="tab2" aria-controls="categories">
+        <label for="tab2">Categories</label>
+        <!-- Tab 3 -->
+        <input type="radio" name="tabset" id="tab3" aria-controls="services">
+        <label for="tab3">Services</label>
+        <input type="radio" name="tabset" id="tab4" aria-controls="appearance">
+        <label for="tab4">Appearance</label>
+
+        <div class="tab-panels">
+          <section id="general" class="tab-panel">
+            <h2>General Settings</h2>
+            <div class="settingsContainer">
+              <form action="/updateGeneralSettings" method="POST" id="generalSettingsForm" name="generalSettingsForm" enctype="multipart/form-data">
+                <label for="admin_password">Admin Password</label>
+                <input type="password" id="admin_password" name="admin_password" placeholder="Set a new password...">
+                <label for="page_title">Page Title</label>
+                <input type="text" id="page_title" name="page_title" placeholder="Rime" value="{{config['config']['page_title']}}">
+                <label for="search_url">Search Provider URL</label>
+                <input type="text" id="search_url" name="search_url" placeholder="https://google.com/search" value="{{config['config']['search_provider_url']}}">
+          
+                <input type="submit" value="Save Settings">
+              </form>
+            </div>
+           
+        </section>
+          <section id="categories" class="tab-panel">
+            <a href="/categoryCreate">Create a new category</a>
+            <h2>Categories</h2>
+              <div class="settingsContainer">
+                <table class="rimeAdminTable">
+                  <tr>
+                    <th>Name</th>
+                    <th>Title Hidden</th>
+                    <th>Actions</th>
+                  </tr>
+                  {% for category in config['categories'] %}
+                  
+                  <tr>
+                    <td>{{category}}</td>
+                    <td>{% if config['categories'][category]['hide_title'] == 1 %} Yes {% else %} No {% endif %}</td>
+                    <td><a href="/categoryEditor?id={{config['categories'][category]['id']}}">Edit</a>&nbsp;<a href="/categoryDelete?id={{config['categories'][category]['id']}}">Delete</a></td>
+                  </tr> 
+                  {% endfor %}
+                </table>
+              </div>
+          </section>
+          <section id="services" class="tab-panel">
+            <div class="settingsContainer">
+              <a href="/serviceCreate">Create a new service</a>
+              <h2>Services</h2>
+                <div class="settingsContainer">
+                  {% for service in config['services'] %}
+                  <h3> {{service }} </h3>
+                  <table class="rimeAdminTable">
+                    <tr>
+                      <th>Name</th>
+                      <th>Actions</th>
+                    </tr>
+
+                  {% for subitem in config['services'][service] %}
+
+                    <tr>
+                      <td>{{subitem}}</td>
+                      <td><a href="/categoryEditor?id=1">Edit</a>&nbsp;<a href="/categoryDelete?id=1">Delete</a></td>
+                    </tr> 
+                    {% endfor %}
+                    
+                  </table>
+                  
+                  {% endfor %}
+                </div>
+            </div>
+          </section>
+
+          <section id="appearance" class="tab-panel">
+            <h2>Appearance</h2>
+            <div class="settingsContainer">
+              Nothing to see here (yet)
+          </div> 
+        </section>
+
+        </div>
+        
+      </div>
+      
+     
+    
+<div class="container">
+    <div class="bottomright"><a class="footer-link" href="https://github.com/binboupan/rime">Rime ({{version}})</a> </div></div>
+  </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+<html></html>
+<head>
+    <title>Rime - Admin</title>
+   <link href="static/themes/default.css" rel="stylesheet"> 
+   <link rel="stylesheet" href="static/fonts/inter.css">
+   <style>
+    /*
+ CSS for the main interaction
+*/
+
+input[type=text],input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #8fba60;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #ccc;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+
+.tabset > input[type="radio"] {
+  position: absolute;
+  left: -200vw;
+}
+
+.tabset .tab-panel {
+  display: none;
+}
+
+.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
+.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
+.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
+.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
+.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
+.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
+  display: block;
+}
+
+/*
+ Styling
+*/
+
+
+.tabset > label {
+  position: relative;
+  display: inline-block;
+  padding: 15px 15px 25px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tabset > label::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
+  width: 70%;
+  height: 4px;
+
+}
+
+input:focus-visible + label {
+  outline: 2px solid #8fba60);
+  border-radius: 3px;
+}
+
+.tabset > label:hover,
+.tabset > input:focus + label,
+.tabset > input:checked + label {
+  color: #8fba60;
+}
+
+.tabset > label:hover::after,
+.tabset > input:focus + label::after,
+.tabset > input:checked + label::after {
+  background: #8fba60;
+}
+
+.tabset > input:checked + label {
+  border-color: #ccc;
+  #border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+}
+
+.tab-panel {
+  padding: 30px 0;
+  border-top: 1px solid #ccc;
+}
+
+/*
+ Demo purposes only
+*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 30px;
+}
+
+.tabset {
+  max-width: 65em;
+}
+
+
+
+.rimeAdminTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.rimeAdminTable td, .rimeAdminTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.rimeAdminTable tr:nth-child(even){background-color: #585857;}
+.rimeAdminTable tr:nth-child(odd){background-color: #424242;}
+
+.rimeAdminTable tr:hover {background-color: #272727;}
+
+.rimeAdminTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #8fba60;
+  color: white;
+}
+
+
+   </style>
+</head>
+<body>
+    <svg width="0" height="0">
+        <defs>
+          <linearGradient id="mygradient">
+            <stop offset="0" class="start-color"/>
+            <stop offset="1" class="end-color"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    <div class="main-container">
+        <h1>Rime Settings</h1>
+      <div class="tabset">
+        <!-- Tab 1 -->
+        <input type="radio" name="tabset" id="tab1" aria-controls="general" checked>
+        <label for="tab1">Edit Category</label>
+
+        <div class="tab-panels">
+          <section id="general" class="tab-panel">
+            <div class="settingsContainer">
+              <form action="/updateCategory" method="POST" id="generalSettingsForm" name="generalSettingsForm" enctype="multipart/form-data">
+                <label for="category_name">Category Name</label>
+                <input type="hidden" id="category_id" name="category_id" value="{{config['id']}}">
+                <input type="text" id="category_name" name="category_name" placeholder="Category Name" value="{{config['name']}}">
+                <br/>
+
+                <input type="submit" value="Save Settings">
+              </form>
+            </div>
+           
+        </section>
+        
+        
+
+        </div>
+        
+      </div>
+      
+     
+    
+<div class="container">
+    <div class="bottomright"><a class="footer-link" href="https://github.com/binboupan/rime">Rime ({{version}})</a> </div></div>
+  </div>
+    
+</body>
+
+</html>

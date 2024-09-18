@@ -143,18 +143,6 @@ body {
     color: #d6d0ce;
 }
 
-.maincolor {
-    color: #d6d0ce;
-}
-
-.iconcolor { 
-    color: #d6d0ce;
-}
-
-.accentcolor {
-    color: #8fba60;
-}
-
 .main-container {
   width: 80%;
   margin: auto;
@@ -166,8 +154,6 @@ body {
   text-decoration: none;
 
 }
-
-
 
 @media (max-width: 800px) {
   .service-container {
