@@ -205,14 +205,14 @@ body {
                 <table class="rimeAdminTable">
                   <tr>
                     <th>Name</th>
-                    <th>Title Hidden</th>
+                    <!--<th>Title Hidden</th> !-->
                     <th>Actions</th>
                   </tr>
                   {% for category in config['categories'] %}
                   
                   <tr>
                     <td>{{category}}</td>
-                    <td>{% if config['categories'][category]['hide_title'] == 1 %} Yes {% else %} No {% endif %}</td>
+                     <!--<td>{% if config['categories'][category]['hide_title'] == 1 %} Yes {% else %} No {% endif %}</td> !-->
                     <td><a href="/categoryEditor?id={{config['categories'][category]['id']}}">Edit</a>&nbsp;<a href="/categoryDelete?id={{config['categories'][category]['id']}}">Delete</a></td>
                   </tr> 
                   {% endfor %}
@@ -233,10 +233,10 @@ body {
                     </tr>
 
                   {% for subitem in config['services'][service] %}
-
+                     
                     <tr>
                       <td>{{subitem}}</td>
-                      <td><a href="/categoryEditor?id=1">Edit</a>&nbsp;<a href="/categoryDelete?id=1">Delete</a></td>
+                      <td><a href="/serviceEditor?id={{config['services'][service][subitem]['id']}}">Edit</a>&nbsp;<a href="/serviceDelete?id={{config['services'][service][subitem]['id']}}">Delete</a></td>
                     </tr> 
                     {% endfor %}
                     

@@ -1,0 +1,7 @@
+services:
+  rime:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - /docker/rime:/app/data

@@ -1,6 +1,6 @@
 .env
-venv/*
-data/*
+src/venv/*
+src/data/*
 
 
 # Byte-compiled / optimized / DLL files

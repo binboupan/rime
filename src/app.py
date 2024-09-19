@@ -12,7 +12,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 from fastapi_utils.tasks import repeat_every
 
-import requests
+from urllib3 import Timeout, PoolManager
+
 import os
 from passlib.context import CryptContext
 
@@ -51,7 +52,12 @@ def verify_credentials(credentials: HTTPBasicCredentials = Depends(security)):
     with Session(engine) as session:
         session.begin()
         db_config = session.query(Config).first()
-        if not (correct_username and Hasher.verify_password(credentials.password, db_config.admin_password)):
+        
+        # No password set.
+        if db_config.admin_password == "":
+            return credentials.username
+
+        elif not (correct_username and Hasher.verify_password(credentials.password, db_config.admin_password)):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Incorrect username or password.",
@@ -118,15 +124,23 @@ def ping_services():
     for category in config_arr["services"]:
         for service in config_arr["services"][category]:
             print("Pinging ", service)
-            state = requests.get(config_arr["services"][category][service]["ping_url"], timeout=(1.0,1.0))
-            print(state.status_code)
+            exception = False
+
             try:
-                if state.status_code == 200 or state.status_code == 302 or state.status_code == 301: # online
+                timeout = Timeout(connect=2.0, read=7.0)
+                http = PoolManager(timeout=timeout)
+                state = http.request('GET', config_arr["services"][category][service]["ping_url"])
+            except Exception as e:
+                exception = True
+                config_arr["services"][category][service]["current_color"] = "red" # cannot contact service
+
+            # Work around urllib3 bug with invalid certs returning 200 error code
+            if not exception:
+                if state.status == 200 or state.status == 302 or state.status == 301: # online
                     config_arr["services"][category][service]["current_color"] = "green"
                 else:
                     config_arr["services"][category][service]["current_color"] = "red"
-            except:
-                    config_arr["services"][category][service]["current_color"] = "red"
+
 
 def load_config():
     global DROP_CACHES
@@ -188,7 +202,6 @@ def load_config():
                         "current_color": "red"
                     }
 
-            #print("config_arr after", config_arr)
 
 
             print("-> Configuration loaded.")
@@ -208,16 +221,16 @@ async def index(request: Request):
         request=request, name="index.html", context={"config": config_arr, "version": VERSION}
     )
 
-
+# Renders the admin view, after credentials are verified with http basic auth
 @app.get("/admin")
 async def admin_ui(request: Request, str = Depends(verify_credentials)):
     # Reload config before accessing admin ui
     load_config()
-
     return templates.TemplateResponse(
         request=request, name="admin.html", context={"config": config_arr}
     )
 
+# Renders the service creation admin page, could be merged with other function in the future
 @app.get("/serviceCreate")
 async def create_service(request: Request, str = Depends(verify_credentials)):
     # Reload config before accessing admin ui
@@ -227,7 +240,7 @@ async def create_service(request: Request, str = Depends(verify_credentials)):
         request=request, name="create_service.html", context={"config": config_arr}
     )
 
-
+# Renders the category creation admin page, could be merged with other function in the future
 @app.get("/categoryCreate")
 async def create_category(request: Request, str = Depends(verify_credentials)):
     # Reload config before accessing admin ui
@@ -237,7 +250,7 @@ async def create_category(request: Request, str = Depends(verify_credentials)):
         request=request, name="create_category.html", context={}
     )
 
-
+# Creates a new service
 @app.post("/createServiceCallback")
 async def create_service_callback(request: Request, str = Depends(verify_credentials)):
     form_data = await request.form()
@@ -266,7 +279,7 @@ async def create_service_callback(request: Request, str = Depends(verify_credent
     )
 
 
-
+# Creates a new category
 @app.post("/createCategoryCallback")
 async def create_category_callback(request: Request, str = Depends(verify_credentials)):
     form_data = await request.form()
@@ -292,6 +305,25 @@ async def create_category_callback(request: Request, str = Depends(verify_creden
     )
 
 
+
+# Delete a category
+@app.get("/serviceDelete")
+async def service_delete(request: Request, str = Depends(verify_credentials)):
+    # Reload config before accessing admin ui
+   
+    edit_id = request.query_params["id"]
+    with Session(engine) as session:
+        service = session.query(Services).where(Services.id==edit_id).first()
+        session.delete(service)
+        session.commit()
+        load_config()
+        ping_services()
+        return templates.TemplateResponse(
+            request=request, name="admin.html", context={"config": config_arr}
+        )
+
+
+# Delete a category
 @app.get("/categoryDelete")
 async def category_delete(request: Request, str = Depends(verify_credentials)):
     # Reload config before accessing admin ui
@@ -302,13 +334,29 @@ async def category_delete(request: Request, str = Depends(verify_credentials)):
         session.delete(category_config)
         session.commit()
         load_config()
+        ping_services()
         return templates.TemplateResponse(
             request=request, name="admin.html", context={"config": config_arr}
         )
 
 
+# Service editor
+@app.get("/serviceEditor")
+async def category_editor(request: Request, str = Depends(verify_credentials)):
+    # Reload config before accessing admin ui
+    load_config()
+    edit_id = request.query_params["id"]
+    with Session(engine) as session:
+        service_config = session.query(Services).where(Services.id==edit_id).first()
+        category_list = session.query(Services_Categories).all()
+
+        return templates.TemplateResponse(
+            request=request, name="edit_service.html", context={"config": service_config, "categories": category_list}
+        )
 
 
+
+# Category editor
 @app.get("/categoryEditor")
 async def category_editor(request: Request, str = Depends(verify_credentials)):
     # Reload config before accessing admin ui
@@ -322,7 +370,35 @@ async def category_editor(request: Request, str = Depends(verify_credentials)):
         )
 
 
+# Updates a category
+@app.post("/updateServiceCallback")
+async def update_service(request: Request, str = Depends(verify_credentials)):
+    form_data = await request.form()
+    with Session(engine) as session:
+        session.begin()
+        service = session.query(Services).where(Services.id==form_data.get("service_id")).first()
 
+
+        service.name = form_data.get("service_name")
+        service.subtitle = form_data.get("service_subtitle")
+        service.icon = form_data.get("service_icon")
+        service.url = form_data.get("service_url")
+        service.ping_url = form_data.get("service_ping_url")
+        service.category_id =  form_data.get("service_category")
+        service.enable_ping = 1
+
+        session.add(service)
+        session.commit()
+
+        # Reload config and return the user to the administration page
+        load_config()
+
+    return templates.TemplateResponse(
+        request=request, name="admin.html", context={"config": config_arr}
+    )
+
+
+# Updates a category
 @app.post("/updateCategory")
 async def update_category(request: Request, str = Depends(verify_credentials)):
     form_data = await request.form()
@@ -348,9 +424,7 @@ async def update_category(request: Request, str = Depends(verify_credentials)):
     )
 
 
-
-
-
+# Updates general settings in admin
 @app.post("/updateGeneralSettings")
 async def update_general_settings(request: Request, str = Depends(verify_credentials)):
     form_data = await request.form()
@@ -360,7 +434,9 @@ async def update_general_settings(request: Request, str = Depends(verify_credent
 
         db_config.page_title = form_data.get("page_title")
         db_config.search_provider_url = form_data.get("search_url")
-        db_config.admin_password = Hasher.get_password_hash(form_data.get("admin_password"))
+
+        if form_data.get("admin_password") != "":
+            db_config.admin_password = Hasher.get_password_hash(form_data.get("admin_password"))
     
         session.add(db_config)
         session.commit()
