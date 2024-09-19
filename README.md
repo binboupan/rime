@@ -1,6 +1,6 @@
 # Rime
 
-![Main Interface](doc/screenshot.png?raw=true "Main interface")
+![Main Interface](doc/screenshot.png?raw=true "Main interface ")
 
 Rime is a dashboard inspired by [Flame](https://github.com/pawelmalak/flame) and [SUI](https://github.com/jeroenpardon/sui) written in Python with focus on speed while not forgetting functionality.
 
@@ -16,9 +16,18 @@ Pull requests **are** welcome!
 
 After launching the administration interface can be accessed at http://localhost:8000/admin (by default). The username is admin, no password. Set an admin password in the interface.
 
-**Docker:**
+**Docker-compose:**
 
-docker run -d -p 800:8000 -v ./data:/app/data rime
+```
+services:
+  rime:
+    image: binboupan/rime:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - /docker/rime:/app/data
+
+```
 
 **Python:**
 
