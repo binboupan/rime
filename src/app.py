@@ -288,6 +288,17 @@ async def create_category(request: Request, str = Depends(verify_credentials)):
         request=request, name="create_category.html", context={}
     )
 
+
+# Renders the category creation admin page, could be merged with other function in the future
+@app.get("/bookmarkCreate")
+async def create_bookmark_category(request: Request, str = Depends(verify_credentials)):
+    # Reload config before accessing admin ui
+    load_config()
+
+    return templates.TemplateResponse(
+        request=request, name="create_bookmark.html", context={"config": config_arr}
+    )
+
 # Renders the bookmark category creation admin page, could be merged with other function in the future
 @app.get("/bookmarkCategoryCreate")
 async def create_category(request: Request, str = Depends(verify_credentials)):
@@ -327,6 +338,32 @@ async def create_service_callback(request: Request, str = Depends(verify_credent
         request=request, name="admin.html", context={"config": config_arr}
     )
 
+# Creates a new bookmark
+@app.post("/createBookmarkCallback")
+async def create_bookmark_callback(request: Request, str = Depends(verify_credentials)):
+    form_data = await request.form()
+    with Session(engine) as session:
+    
+        session.begin()
+        service = Bookmarks()
+        service.name = form_data.get("service_name")
+        service.icon = form_data.get("service_icon")
+        service.url = form_data.get("service_url")
+
+        service.category_id =  form_data.get("service_category")
+
+        session.add(service)
+        session.commit()
+
+        # Reload config and return the user to the administration page
+        load_config()
+        ping_services()
+
+    return templates.TemplateResponse(
+        request=request, name="admin.html", context={"config": config_arr}
+    )
+
+
 
 # Creates a new category
 @app.post("/createCategoryCallback")
@@ -352,6 +389,8 @@ async def create_category_callback(request: Request, str = Depends(verify_creden
     return templates.TemplateResponse(
         request=request, name="admin.html", context={"config": config_arr}
     )
+
+
 
 
 # Creates a new category
