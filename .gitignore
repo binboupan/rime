@@ -1,6 +1,6 @@
 .env
 src/venv/*
-src/data/*
+src/data/rime.db
 
 
 # Byte-compiled / optimized / DLL files

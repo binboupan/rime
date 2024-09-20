@@ -17,6 +17,75 @@ svg {
   box-sizing: border-box;
 }
 
+.bookmarks-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.bookmark-item {
+  display: flex;
+  flex-direction: row;
+
+  color: #d6d0ce;
+  text-decoration: none;
+ 
+  min-height: 30px;
+  max-height: 30px;
+
+  /* You can change the online green color and side here */
+  border-radius: 5px;
+  
+  
+  padding: 0px;
+ 
+  background-color: #282c34;
+  margin: 5px;
+  flex: 20%;
+  transition: transform 0.3s ease-in-out;
+
+}
+
+.bookmark-icon-background {
+  background-color: #1a1d22;
+
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 5px;
+ 
+}
+
+.bookmark-icon {
+  
+  align-items: center;
+  justify-items: center;
+
+  float: left;
+  width: 20px;
+  height: 20px;
+
+}
+
+.bookmark-title {
+  margin: auto;
+  margin-left: 10px;
+  flex: 1;
+  font-size: 1rem;
+}
+
+
+
+.bookmark-container {
+
+  a {
+    text-decoration: none;
+    
+  }
+  
+  display: flex;
+  flex: 20%;
+  flex-direction: column;
+}
+
 .service-container {
   display: flex;
   flex-direction: row;

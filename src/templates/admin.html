@@ -178,8 +178,12 @@ body {
         <!-- Tab 3 -->
         <input type="radio" name="tabset" id="tab3" aria-controls="services">
         <label for="tab3">Services</label>
-        <input type="radio" name="tabset" id="tab4" aria-controls="appearance">
-        <label for="tab4">Appearance</label>
+
+        <input type="radio" name="tabset" id="tab4" aria-controls="bookmarks">
+        <label for="tab4">Bookmarks</label>
+
+        <input type="radio" name="tabset" id="tab5" aria-controls="appearance">
+        <label for="tab5">Appearance</label>
 
         <div class="tab-panels">
           <section id="general" class="tab-panel">
@@ -199,7 +203,7 @@ body {
            
         </section>
           <section id="categories" class="tab-panel">
-            <a href="/categoryCreate">Create a new category</a>
+            <a href="/categoryCreate">Create a new category</a><br/><a href="/bookmarkCategoryCreate">Create a new bookmark category</a>
             <h2>Categories</h2>
               <div class="settingsContainer">
                 <table class="rimeAdminTable">
@@ -217,6 +221,25 @@ body {
                   </tr> 
                   {% endfor %}
                 </table>
+
+
+                <h2>Bookmark Categories</h2>
+
+                <table class="rimeAdminTable">
+                  <tr>
+                    <th>Name</th>
+                    <!--<th>Title Hidden</th> !-->
+                    <th>Actions</th>
+                  </tr>
+                  {% for category in config['categories_bookmarks'] %}
+                  
+                  <tr>
+                    <td>{{category}}</td>
+                    <td><a href="/bookmarkCategoryEditor?id={{config['categories_bookmarks'][category]['id']}}">Edit</a>&nbsp;<a href="/bookmarkCategoryDelete?id={{config['categories_bookmarks'][category]['id']}}">Delete</a></td>
+                  </tr> 
+                  {% endfor %}
+                </table>
+
               </div>
           </section>
           <section id="services" class="tab-panel">
@@ -247,10 +270,36 @@ body {
             </div>
           </section>
 
+          <section id="bookmarks" class="tab-panel">
+            <h2>Bookmarks</h2>
+            <div class="settingsContainer">
+              {% for service in config['bookmarks'] %}
+              <h3> {{service }} </h3>
+              <table class="rimeAdminTable">
+                <tr>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </tr>
+
+              {% for subitem in config['bookmarks'][service] %}
+                 
+                <tr>
+                  <td>{{subitem}}</td>
+                  <td><a href="/bookmarkEditor?id={{config['bookmarks'][service][subitem]['id']}}">Edit</a>&nbsp;<a href="/bookmarkDelete?id={{config['bookmarks'][service][subitem]['id']}}">Delete</a></td>
+                </tr> 
+                {% endfor %}
+                
+              </table>
+              
+              {% endfor %}
+          </div> 
+        </section>
+
+
           <section id="appearance" class="tab-panel">
             <h2>Appearance</h2>
             <div class="settingsContainer">
-              Nothing to see here (yet)
+             Nothing to see here (yet)
           </div> 
         </section>
 

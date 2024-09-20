@@ -18,6 +18,7 @@ import os
 from passlib.context import CryptContext
 
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
+import sys
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBasic()
@@ -30,9 +31,11 @@ VERSION = "unknown"
 
 try:
     import gitinfo
+    sys.path.append("..")
     VERSION = gitinfo.get_git_info()["commit"][:7]
-except:
-    VERSION = "0.1.0"
+except Exception as e:
+    print(e)
+    VERSION = "0.1.1"
     
 
 # Should we refetch configuration, services, etc
@@ -81,6 +84,12 @@ class Services_Categories(Base):
     name = Column(String) 
     hide_title = Column(Integer, server_default="0")
 
+
+class Bookmarks_Categories(Base):
+    __tablename__ = "bookmarks_categories"
+    id = Column(Integer, primary_key = True, unique=True, autoincrement=True)
+    name = Column(String) 
+
 class Services(Base):
     __tablename__ = "services"
     id = Column(Integer, primary_key = True, unique=True, autoincrement=True)
@@ -91,6 +100,15 @@ class Services(Base):
     url = Column(String)
     ping_url = Column(String, nullable=True)
     enable_ping = Column(Integer, server_default='1')
+
+class Bookmarks(Base):
+    __tablename__ = "bookmarks"
+    id = Column(Integer, primary_key = True, unique=True, autoincrement=True)
+    category_id = Column(Integer, nullable=False)
+    name = Column(String) 
+    icon = Column(String, nullable=True)
+    url = Column(String)
+
 
 class Config(Base):
    __tablename__ = "config"
@@ -176,10 +194,30 @@ def load_config():
             }
             config_arr["services"] = {}
             config_arr["categories"] = {}
-
+            config_arr["categories_bookmarks"] = {}
             config_arr["bookmarks"] = {}           
 
             categories = session.query(Services_Categories).all()
+            categories_bookmarks = session.query(Bookmarks_Categories).all()
+
+
+            # bookmarks
+            for category in categories_bookmarks:
+                config_arr["categories_bookmarks"][str(category.name)] = {
+                    "id": category.id,
+                }
+                config_arr["bookmarks"][category.name] = {}
+
+                bookmarks = session.query(Bookmarks).where(Bookmarks.category_id==category.id).all()
+                for bookmark in bookmarks:
+                    config_arr["bookmarks"][str(category.name)][str(bookmark.name)] = {
+                        "id": bookmark.id,
+                        "name": bookmark.name,
+                        "url": bookmark.url,
+                        "icon": bookmark.icon
+                    }
+                    
+            # categories
             for category in categories:
                 config_arr["categories"][str(category.name)] = {
                     "id": category.id,
@@ -188,7 +226,7 @@ def load_config():
                 config_arr["services"][category.name] = {}
             
 
-
+                # services
                 services = session.query(Services).where(Services.category_id==category.id).all()
                 for service in services:
                     config_arr["services"][str(category.name)][str(service.name)] = {
@@ -203,7 +241,7 @@ def load_config():
                     }
 
 
-
+            print("config_arr", config_arr)
             print("-> Configuration loaded.")
 
 load_config()
@@ -249,6 +287,17 @@ async def create_category(request: Request, str = Depends(verify_credentials)):
     return templates.TemplateResponse(
         request=request, name="create_category.html", context={}
     )
+
+# Renders the bookmark category creation admin page, could be merged with other function in the future
+@app.get("/bookmarkCategoryCreate")
+async def create_category(request: Request, str = Depends(verify_credentials)):
+    # Reload config before accessing admin ui
+    load_config()
+
+    return templates.TemplateResponse(
+        request=request, name="create_bookmark_category.html", context={}
+    )
+
 
 # Creates a new service
 @app.post("/createServiceCallback")
@@ -305,6 +354,30 @@ async def create_category_callback(request: Request, str = Depends(verify_creden
     )
 
 
+# Creates a new category
+@app.post("/createBookmarkCategoryCallback")
+async def create_bookmark_category_callback(request: Request, str = Depends(verify_credentials)):
+    form_data = await request.form()
+    with Session(engine) as session:
+        
+        session.begin()
+        category = Bookmarks_Categories()
+
+        category.name = form_data.get("category_name")
+
+    
+        session.add(category)
+        session.commit()
+
+        # Reload config and return the user to the administration page
+        load_config()
+
+    return templates.TemplateResponse(
+        request=request, name="admin.html", context={"config": config_arr}
+    )
+
+
+
 
 # Delete a category
 @app.get("/serviceDelete")
@@ -339,6 +412,40 @@ async def category_delete(request: Request, str = Depends(verify_credentials)):
             request=request, name="admin.html", context={"config": config_arr}
         )
 
+# Delete a category
+@app.get("/bookmarkDelete")
+async def bookmark_delete(request: Request, str = Depends(verify_credentials)):
+    # Reload config before accessing admin ui
+   
+    edit_id = request.query_params["id"]
+    with Session(engine) as session:
+        category_config = session.query(Bookmarks).where(Bookmarks.id==edit_id).first()
+        session.delete(category_config)
+        session.commit()
+        load_config()
+        ping_services()
+        return templates.TemplateResponse(
+            request=request, name="admin.html", context={"config": config_arr}
+        )
+
+
+# Delete a bookmark category
+@app.get("/bookmarkCategoryDelete")
+async def bookmark_category_delete(request: Request, str = Depends(verify_credentials)):
+    # Reload config before accessing admin ui
+   
+    edit_id = request.query_params["id"]
+    with Session(engine) as session:
+        category_config = session.query(Bookmarks_Categories).where(Bookmarks_Categories.id==edit_id).first()
+        session.delete(category_config)
+        session.commit()
+        load_config()
+        ping_services()
+        return templates.TemplateResponse(
+            request=request, name="admin.html", context={"config": config_arr}
+        )
+    
+
 
 # Service editor
 @app.get("/serviceEditor")
@@ -355,6 +462,35 @@ async def category_editor(request: Request, str = Depends(verify_credentials)):
         )
 
 
+# Bookmark editor
+@app.get("/bookmarkEditor")
+async def bookmark_editor(request: Request, str = Depends(verify_credentials)):
+    # Reload config before accessing admin ui
+    load_config()
+    edit_id = request.query_params["id"]
+    with Session(engine) as session:
+        service_config = session.query(Bookmarks).where(Bookmarks.id==edit_id).first()
+        category_list = session.query(Bookmarks_Categories).all()
+
+        return templates.TemplateResponse(
+            request=request, name="edit_bookmark.html", context={"config": service_config, "categories": category_list}
+        )
+
+
+
+# Bookmark Category editor
+@app.get("/bookmarkCategoryEditor")
+async def category_editor(request: Request, str = Depends(verify_credentials)):
+    # Reload config before accessing admin ui
+    load_config()
+    edit_id = request.query_params["id"]
+    with Session(engine) as session:
+        category_config = session.query(Bookmarks_Categories).where(Bookmarks_Categories.id==edit_id).first()
+
+        return templates.TemplateResponse(
+            request=request, name="edit_bookmark_category.html", context={"config": category_config}
+        )
+    
 
 # Category editor
 @app.get("/categoryEditor")
@@ -397,6 +533,53 @@ async def update_service(request: Request, str = Depends(verify_credentials)):
         request=request, name="admin.html", context={"config": config_arr}
     )
 
+
+
+# Updates a Bookmark
+@app.post("/updateBookmarkCallback")
+async def update_bookmark(request: Request, str = Depends(verify_credentials)):
+    form_data = await request.form()
+    with Session(engine) as session:
+        session.begin()
+        service = session.query(Bookmarks).where(Bookmarks.id==form_data.get("service_id")).first()
+        service.name = form_data.get("service_name")
+        service.icon = form_data.get("service_icon")
+        service.url = form_data.get("service_url")
+        service.category_id =  form_data.get("service_category")
+
+
+        session.add(service)
+        session.commit()
+
+        # Reload config and return the user to the administration page
+        load_config()
+
+    return templates.TemplateResponse(
+        request=request, name="admin.html", context={"config": config_arr}
+    )
+
+
+# Updates a category
+@app.post("/updateBookmarkCategory")
+async def update_bookmark_category(request: Request, str = Depends(verify_credentials)):
+    form_data = await request.form()
+    with Session(engine) as session:
+        session.begin()
+        category = session.query(Bookmarks_Categories).where(Bookmarks_Categories.id==form_data.get("category_id")).first()
+
+
+        category.name = form_data.get("category_name")
+
+    
+        session.add(category)
+        session.commit()
+
+        # Reload config and return the user to the administration page
+        load_config()
+
+    return templates.TemplateResponse(
+        request=request, name="admin.html", context={"config": config_arr}
+    )
 
 # Updates a category
 @app.post("/updateCategory")

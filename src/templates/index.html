@@ -44,6 +44,31 @@
             {% endfor %}
             </div>
         {% endfor %}
+
+        <div class="bookmarks-container">
+          {% for bookmark_category in config['bookmarks'] %}
+          
+            <div class="bookmark-container">
+              <h1>{{bookmark_category}}</h1>
+              {% for service in config['bookmarks'][bookmark_category] %}
+              <a class="bookmark-item" href="{{config['bookmarks'][bookmark_category][service]['url']}}">
+                <div class="bookmark-icon-background">
+                <div class="bookmark-icon">
+                  {%- include "icons/"+ config['bookmarks'][bookmark_category][service]['icon'] +".svg" ignore missing -%}
+              </div>
+            </div>
+                <div class="bookmark-title">
+                  {{config['bookmarks'][bookmark_category][service]['name']}}
+                </div>
+              </a>
+              {% endfor %}
+             
+            </div>
+            
+            {% endfor %}
+
+        </div>
+
           </div>
     </div>
 
