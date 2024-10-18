@@ -130,6 +130,17 @@ a {
   height: 35px;
 }
 
+
+
+.player-icon {
+ 
+  float: right;
+  width: 35px;
+  margin-left: auto;
+ 
+}
+
+
 .service-card-titles {
   
  margin-left: 50px;

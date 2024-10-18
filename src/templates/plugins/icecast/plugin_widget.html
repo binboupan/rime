@@ -1,0 +1,14 @@
+<a onclick="togglePlayState_{{service.id}}();" class="service-card" style="border-right: 2px solid green;">
+
+    <div class="service-card-wrapper" >
+        <div class="service-icon">{%- include "icons/"+ service.plugin_config["icon"] +".svg" ignore missing -%}</div>
+        
+        <div class="service-card-titles">
+            <div class="service-card-title">{{service.plugin_config["name"]}}</div>
+            <div class="service-card-subtitle"><span id="metadata_{{service.id}}"></span></div>
+        </div>
+    </div>
+
+    <div class="player-icon"><span id="playicon_{{service.id}}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9 17.192V6.808L17.154 12z"/></svg></span></div>
+
+</a>

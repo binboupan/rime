@@ -1,13 +1,26 @@
-<html></html>
+<html>
+  
 <head>
-    <title>{{ config['config']['page_title'] }}</title>
+    <title>Rime 0.2.0</title>
    <link href="static/themes/default.css" rel="stylesheet"> 
    <link rel="stylesheet" href="static/fonts/inter.css">
+   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+   {% for plugin in enabled_plugins %}
+   {%- include "plugins/"+ plugin.plugin_name +"/includes.html" ignore missing -%}
+   {% endfor %}
+
+   {% for category in categories %}
+{% for service in get_configs(category.id) %}
+{%- include "plugins/"+ service.plugin_name +"/plugin_head.html" ignore missing -%}
+{% endfor %}
+{% endfor %}
 
 </head>
 <body>
   <!-- Firefox SVG rendering hack  !-->
   <script>0</script>
+  
 
     <svg width="0" height="0">
         <defs>
@@ -26,63 +39,33 @@
          </div>
         </form>
   
-        {% for service_category in config['services'] %}
-            <h1>{{ service_category}}</h1>
+        {% for category in categories %}
+            <h1>{{ category.name }}</h1>
             <div class="service-container">
-            {% for service in config['services'][service_category] %}
-                
-            <a href="{{ config['services'][service_category][service]['url']}}" class="service-card" style="border-right: 2px solid {{ config['services'][service_category][service]['current_color']}};">
-                
-                <div class="service-card-wrapper" >
-                    <div class="service-icon">
-                        {%- include "icons/"+ config['services'][service_category][service]['icon'] +".svg" ignore missing -%}
-                    </div>
-                
-                    <div class="service-card-titles">
-                        <div class="service-card-title">{{ config['services'][service_category][service]['name']}}</div>
-                        <div class="service-card-subtitle">{{ config['services'][service_category][service]['subtitle']}}</div>
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
+              <!-- Loop services!! !-->
+               {% for service in get_configs(category.id) %}
+               {%- include "plugins/"+ service.plugin_name +"/plugin_widget.html" -%}
+               {% endfor %}
+            
             </div>
         {% endfor %}
 
-        <div class="bookmarks-container">
-          {% for bookmark_category in config['bookmarks'] %}
-          
-            <div class="bookmark-container">
-              <h1>{{bookmark_category}}</h1>
-              {% for service in config['bookmarks'][bookmark_category] %}
-              <a class="bookmark-item" href="{{config['bookmarks'][bookmark_category][service]['url']}}">
-                <div class="bookmark-icon-background">
-                <div class="bookmark-icon">
-                  {%- include "icons/"+ config['bookmarks'][bookmark_category][service]['icon'] +".svg" ignore missing -%}
-              </div>
-            </div>
-                <div class="bookmark-title">
-                  {{config['bookmarks'][bookmark_category][service]['name']}}
-                </div>
-              </a>
-              {% endfor %}
-             
-            </div>
-            
-            {% endfor %}
-
-        </div>
+<!---
+     bookmark div here!!!
+      -->
 
           </div>
     </div>
 
-    
-<div class="container">
-    <div class="bottomright"><a class="footer-link" href="https://github.com/binboupan/rime">Rime ({{version}})</a> </div></div>
-  </div>
-    
 </body>
 <script>
         searchTerm.addEventListener(`focus`, () => searchTerm.select());
 
 </script>
+{% for category in categories %}
+{% for service in get_configs(category.id) %}
+{%- include "plugins/"+ service.plugin_name +"/plugin_footer.html" ignore missing -%}
+{% endfor %}
+{% endfor %}
+
 </html>

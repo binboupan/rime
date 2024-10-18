@@ -1,0 +1,14 @@
+
+    <a id="website_{{service.id}}" href="{{service.plugin_config['url']}}" class="service-card">
+        
+        <div class="service-card-wrapper" >
+            <div class="service-icon">
+                {%- include "icons/"+ service.plugin_config["icon"] +".svg" ignore missing -%}
+            </div>
+        
+            <div class="service-card-titles">
+                <div class="service-card-title">{{service.plugin_config["name"]}}</div>
+                <div class="service-card-subtitle">{{service.plugin_config["subtitle"]}}</div>
+            </div>
+        </div>
+    </a>
