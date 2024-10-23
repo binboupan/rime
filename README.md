@@ -1,4 +1,4 @@
-![Rime Logo](docs/rime-logo.png?raw=true "Rime Logo" ){: width="50%"}
+![Rime Logo](docs/rime-logo.png?raw=true "Rime Logo" )
 
 # Rime Dashboard
 
