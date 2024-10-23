@@ -1,0 +1,1 @@
+# The icecast plugin does not use Python code, but this file is necessary

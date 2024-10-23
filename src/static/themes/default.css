@@ -1,0 +1,249 @@
+/* CSS */
+
+svg {
+  fill: url(#mygradient);
+}
+
+#mygradient stop.start-color {
+  stop-color: #d6d0ce;
+}
+
+#mygradient stop.end-color {
+  stop-color: #585857;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+.bookmarks-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.bookmark-item {
+  display: flex;
+  flex-direction: row;
+
+  color: #d6d0ce;
+  text-decoration: none;
+ 
+  min-height: 30px;
+  max-height: 30px;
+
+  /* You can change the online green color and side here */
+  border-radius: 5px;
+  
+  
+  padding: 0px;
+ 
+  background-color: #282c34;
+  margin: 5px;
+  flex: 20%;
+  transition: transform 0.3s ease-in-out;
+
+}
+
+.bookmark-icon-background {
+  background-color: #1a1d22;
+
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 5px;
+ 
+}
+
+.bookmark-icon {
+  
+  align-items: center;
+  justify-items: center;
+
+  float: left;
+  width: 20px;
+  height: 20px;
+
+}
+
+.bookmark-title {
+  margin: auto;
+  margin-left: 10px;
+  flex: 1;
+  font-size: 1rem;
+}
+
+
+
+.bookmark-container {
+
+  a {
+    text-decoration: none;
+    
+  }
+  
+  display: flex;
+  flex: 20%;
+  flex-direction: column;
+}
+
+.service-container {
+  display: flex;
+  flex-direction: row;
+
+  text-align: center;
+  flex-wrap: wrap;
+  
+}
+
+a {
+  text-decoration: none;
+  
+}
+
+.service-card {
+  color: #d6d0ce;
+  text-decoration: none;
+  display: flex;
+  min-height: 70px;
+
+
+  /* You can change the online green color and side here */
+  border-radius: 5px;
+  
+  border-top: none;
+  border-left: none;
+    
+  border-bottom: none;
+  padding: 15px;
+ 
+  background-color: #282c34;
+  margin: 10px;
+  flex: 20%;
+  transition: transform 0.3s ease-in-out;
+ 
+ 
+}
+
+.service-icon {
+  float: left;
+  width: 35px;
+  height: 35px;
+}
+
+
+
+.player-icon {
+ 
+  float: right;
+  width: 35px;
+  margin-left: auto;
+ 
+}
+
+
+.service-card-titles {
+  
+ margin-left: 50px;
+ text-align: left;
+  height: 40px;
+ 
+ display: flex;
+  justify-content: center;
+ flex-direction: column;
+}
+
+
+
+.service-card-title {
+  flex: 1;
+  font-size: .875rem;
+}
+
+.service-card-subtitle {
+  flex: 1;
+    font-size: .75rem;  
+}
+.service-card:hover {
+  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
+.bottomright {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  font-size: 12px;
+}
+
+
+
+
+/* inter related css */
+
+:root {
+    font-family: Inter, sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+  }
+  @supports (font-variation-settings: normal) {
+    :root { font-family: InterVariable, sans-serif; }
+  }
+
+
+/* search box styling*/
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+    
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 1px solid #8fba60;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 5px;
+    height: 40px;
+    outline: none;
+    color: #8fba60;
+    background-color: #282c34;
+  }
+  
+  .searchTerm:focus{
+    color: #8fba60;
+  }
+ 
+/* theming */
+
+body {
+    background-color: #21242b;
+    
+    color: #d6d0ce;
+}
+
+.main-container {
+  width: 80%;
+  margin: auto;
+ 
+}
+
+.footer-link{
+  color: #d6d0ce;
+  text-decoration: none;
+
+}
+
+@media (max-width: 800px) {
+  .service-container {
+    flex-direction: column;
+  }
+
+  .main-container {
+    width: 100%;
+    margin: none;
+   
+  }
+}
+

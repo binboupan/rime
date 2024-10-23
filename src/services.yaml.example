@@ -1,0 +1,16 @@
+Services:
+    github:
+        plugin: website
+        name: "Github"
+        subtitle: "Developer Platform"
+        url: "https://github.com"
+        ping_url: "https://github.com"
+        interval: 60
+        icon: "github"
+
+Second Category:
+    radio:
+        plugin: icecast
+        name: "Radio Station"
+        icon: "podcastindex"
+        url: "https://dsmrad.io/stream/isics-all"
