@@ -1,7 +1,9 @@
 .env
 src/venv/*
 src/services.yaml
-
+src/config/services.yaml
+src/config/config.yaml
+src/config/bookmarks.yaml
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

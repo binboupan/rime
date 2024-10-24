@@ -1,15 +1,12 @@
 /* CSS */
 
-svg {
-  fill: url(#mygradient);
-}
-
+/* Icon gradient color */
 #mygradient stop.start-color {
-  stop-color: #d6d0ce;
+  stop-color: {{app_config['icon-gradient-start-color']}};
 }
 
 #mygradient stop.end-color {
-  stop-color: #585857;
+  stop-color: {{app_config['icon-gradient-end-color']}};
 }
 
 
@@ -25,20 +22,13 @@ svg {
 .bookmark-item {
   display: flex;
   flex-direction: row;
-
-  color: #d6d0ce;
+  color: {{app_config['bookmark-text-color']}};
   text-decoration: none;
- 
   min-height: 30px;
   max-height: 30px;
-
-  /* You can change the online green color and side here */
   border-radius: 5px;
-  
-  
   padding: 0px;
- 
-  background-color: #282c34;
+  background-color: {{app_config['bookmark-background-color']}};
   margin: 5px;
   flex: 20%;
   transition: transform 0.3s ease-in-out;
@@ -46,7 +36,7 @@ svg {
 }
 
 .bookmark-icon-background {
-  background-color: #1a1d22;
+  background-color: {{app_config['bookmark-icon-background-color']}};
 
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -101,14 +91,14 @@ a {
 }
 
 .service-card {
-  color: #d6d0ce;
+  color: {{app_config['service-text-color']}};
   text-decoration: none;
   display: flex;
   min-height: 70px;
 
 
   /* You can change the online green color and side here */
-  border-radius: 5px;
+  border-radius: {{app_config['service-card-border-radius']}}px;
   
   border-top: none;
   border-left: none;
@@ -116,9 +106,9 @@ a {
   border-bottom: none;
   padding: 15px;
  
-  background-color: #282c34;
+  background-color: {{app_config['service-card-background-color']}};
   margin: 10px;
-  flex: 20%;
+  flex: calc(80% / {{app_config["max-items-per-row"]}});
   transition: transform 0.3s ease-in-out;
  
  
@@ -168,14 +158,6 @@ a {
 }
 
 
-.bottomright {
-  position: absolute;
-  bottom: 8px;
-  right: 16px;
-  font-size: 12px;
-}
-
-
 
 
 /* inter related css */
@@ -200,27 +182,27 @@ a {
   
   .searchTerm {
     width: 100%;
-    border: 1px solid #8fba60;
+    border: 1px solid {{app_config['search-border-color']}};
     border-top: none;
     border-left: none;
     border-right: none;
     padding: 5px;
     height: 40px;
     outline: none;
-    color: #8fba60;
-    background-color: #282c34;
+    color: {{app_config['search-text-color']}};
+    background-color: {{app_config['search-background-color']}};
   }
   
   .searchTerm:focus{
-    color: #8fba60;
+    color: {{app_config['search-focused-color']}};
   }
  
 /* theming */
 
 body {
-    background-color: #21242b;
+    background-color: {{app_config['main-background-color']}};
     
-    color: #d6d0ce;
+    color: {{app_config['main-text-color']}};
 }
 
 .main-container {
@@ -229,17 +211,20 @@ body {
  
 }
 
-.footer-link{
-  color: #d6d0ce;
-  text-decoration: none;
 
+/* Placeholder SVG for the icon gradient */
+svg {
+  fill: url(#mygradient);
 }
 
+/* Mobile tweaks */
 @media (max-width: 800px) {
   .service-container {
     flex-direction: column;
   }
-
+  .bookmarks-container {
+    flex-direction: column;
+  }
   .main-container {
     width: 100%;
     margin: none;

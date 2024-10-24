@@ -1,0 +1,7 @@
+services:
+  rime:
+    image: rime-test5
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./src/services.yaml:/app/services.yaml:z

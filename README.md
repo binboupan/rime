@@ -21,7 +21,7 @@ Pull requests **are** welcome!
 
 ## Getting Started
 
-Edit services.yaml as you see fit!
+Edit the yaml files in the config folder as you see fit!
 
 
 **Python:**
@@ -31,7 +31,9 @@ cd src
 python3 -m venv venv  
 source bin/env/activate  
 pip3 install -r dependencies.txt  
-cp services.yaml.example services.yaml
+cp config/bookmarks.yaml.example config/bookmarks.yaml
+cp config/services.yaml.example config/services.yaml
+cp config/config.yaml.example config/config.yaml
 uvicorn app:app --port 8095 --reload --reload-include *.yaml
 
 ```

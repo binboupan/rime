@@ -1,0 +1,31 @@
+# Global app configuration
+
+# Title
+title: "Rime"
+
+# Theming
+
+# Which edge show the red and green online indicator
+max-items-per-row: 4
+
+# Icon gradient color
+icon-gradient-start-color: "#d6d0ce"
+icon-gradient-end-color: "#585857"
+
+
+main-background-color: "#21242b"
+main-text-color: "#d6d0ce"
+
+bookmark-text-color: "#d6d0ce"
+bookmark-background-color: "#282c34"
+bookmark-icon-background-color: "#1a1d22"
+
+service-text-color: "#d6d0ce"
+service-card-background-color: "#282c34"
+service-card-border-radius: 5
+
+
+search-text-color: "#8fba60"
+search-background-color: "#282c34"
+search-border-color: "#8fba60"
+search-focused-color: "#8fba60"

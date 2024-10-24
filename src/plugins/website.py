@@ -7,7 +7,7 @@ import requests
 from fastapi.responses import JSONResponse
 from dependencies import Plugin
 
-from config.database import get_config
+from yamlutil.database import get_config
 
 #from database.database import get_plugin_config
 
