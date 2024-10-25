@@ -3,7 +3,7 @@
 }
 
 .pihole-titles {
-  float: right;
+
     margin-left: auto;
 
   text-align: left;
@@ -17,12 +17,19 @@
  
  
  .pihole-ads-title {
-   flex: 1;
+
    font-weight:bold;
    font-size: .875rem;
  }
  
  .pihole-subtitle {
-   flex: 1;
-  font-size: .75rem;  
+  display: flex;
+  
+  font-size:18px;  
  }
+ .pihole-blocked{
+  margin-left: 1rem;
+  align-content: center;
+ }
+
+ 
