@@ -7,6 +7,14 @@ Services:
         ping_url: "https://github.com"
         interval: 60
         icon: "github"
+    pihole:
+        plugin: pihole
+        name: "Pi-hole"
+        api-key: ""
+        subtitle: "Ad Blocker"
+        url: "https://pi.hole"
+        interval: 60
+        icon: "pihole"
 
 Second Category:
     radio:
