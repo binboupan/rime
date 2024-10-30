@@ -1,8 +1,8 @@
-.pihole-stats {
+.adguardhome-stats {
   flex: 3;
 }
 
-.pihole-titles {
+.adguardhome-titles {
 
     margin-left: auto;
 
@@ -16,22 +16,22 @@
  
  
  
- .pihole-ads-title {
+ .adguardhome-ads-title {
 
    font-weight:bold;
    font-size: .875rem;
  }
  
- .pihole-subtitle {
+ .adguardhome-subtitle {
   display: flex;
   
 
  }
- .pihole-blocked{
+ .adguardhome-blocked{
   
   margin-left: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   align-content: center;
  }
 
- 
+

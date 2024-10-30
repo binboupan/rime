@@ -4,13 +4,20 @@
     async function pingService_{{service}}(){
         console.log("Pinging")
         try {
-            const req = await fetch("/pihole/status?id={{service}}&category={{category}}")
+            const req = await fetch("/adguardhome/status?id={{service}}&category={{category}}")
             
             if(req.status === 200){
                 const data_{{service}} = await req.json()
                 console.log(data_{{service}})
 
-                document.getElementById("pihole_{{service}}").innerHTML = `${data_{{service}}.ads_blocked_today} (${data_{{service}}.ads_percentage_today.toFixed(1)}%)`;
+                let allowed_count = (`${data_{{service}}.num_dns_queries}` - `${data_{{service}}.num_blocked_filtering}`)
+                let allowed_percentage = (allowed_count / `${data_{{service}}.num_dns_queries}` * 100).toFixed(1)
+
+
+                let blocked_count = `${data_{{service}}.num_blocked_filtering}`
+                let blocked_percentage = (`${data_{{service}}.num_blocked_filtering}` / `${data_{{service}}.num_dns_queries}` * 100).toFixed(1)
+
+                document.getElementById("adguardhome_{{service}}").innerHTML = "<p>" + allowed_count + " (" + allowed_percentage +  `%)</p>` + "<p>" + blocked_count + " (" + blocked_percentage +  `%)</p>` ;
                 element_{{service}}.classList.remove("website-red");    
                 element_{{service}}.classList.add("website-green");     
                 

@@ -218,13 +218,24 @@ svg {
 }
 
 /* Mobile tweaks */
-@media (max-width: 800px) {
+@media (max-width: 1024px) {
+
   .service-container {
     flex-direction: column;
   }
   .bookmarks-container {
     flex-direction: column;
   }
+  .main-container {
+    width: 100%;
+    margin: none;
+   
+  }
+}
+
+/* Mobile tweaks */
+@media (max-width: 1500px) {
+  
   .main-container {
     width: 100%;
     margin: none;

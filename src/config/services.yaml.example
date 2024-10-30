@@ -15,6 +15,15 @@ Services:
         url: "https://pi.hole"
         interval: 60
         icon: "pihole"
+    adguardhome:
+        plugin: adguardhome
+        name: "Adguard Home"
+        subtitle: "Ad Blocker"
+        # api key is based64 of username:password
+        api-key: "base64 string"
+        url: "https://adguard"
+        interval: 60
+        icon: "adguard"
 
 Second Category:
     radio:
