@@ -8,6 +8,7 @@
    </style>
 
    <link rel="stylesheet" href="static/fonts/inter.css">
+   <link rel="stylesheet" href="static/css/materialdesignicons.min.css">
    <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
    {% for plugin in enabled_plugins %}
@@ -44,8 +45,9 @@
         </form>
   
         {% for category in config %}
-            <h1>{{ category }}</h1>
-            <div class="service-container">
+        <div class="service-category-title"><h1>{{ category }}</h1></div>
+            <div class="services-container">
+              
               <!-- Loop services!! !-->
                {% for service in config[category] %}
                {%- include "plugins/"+ config[category][service]['plugin'] +"/plugin_widget.html" -%}
@@ -54,7 +56,7 @@
             </div>
         {% endfor %}
 
-        <div class="bookmarks-container">
+        <div class="services-container">
           {% for bookmark_category in bookmarks %}
           
             <div class="bookmark-container">

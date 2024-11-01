@@ -1,14 +1,20 @@
 
-    <a id="website_{{service}}" href="{{config[category][service]['url']}}" class="service-card">
-        
-        <div class="service-card-wrapper" >
-            <div class="service-icon">
-                {%- include "icons/"+ config[category][service]['icon'] +".svg" -%}
-            </div>
-        
-            <div class="service-card-titles">
-                <div class="service-card-title">{{config[category][service]['name']}}</div>
-                <div class="service-card-subtitle">{{config[category][service]['subtitle']}}</div>
-            </div>
+<a class="service-item-container" id="website_{{service}}" href="{{config[category][service]['url']}}">
+    <div class="service-item service-icon">
+        <div class="service-subitem">
+            {%- include "icons/"+ config[category][service]['icon'] +".svg" -%}
         </div>
-    </a>
+    </div>
+    
+    <div class="service-item">
+        <div class="service-subitem service-title">
+            {{config[category][service]['name']}}
+        </div>
+        <div class="service-subitem service-subtitle">
+            {{config[category][service]['subtitle']}}
+        </div>
+    </div>
+  
+</a>
+
+

@@ -1,5 +1,113 @@
 /* CSS */
 
+
+:root{
+  font-family:Inter,sans-serif;
+  font-feature-settings:'liga' 1,'calt' 1
+}
+@supports (font-variation-settings:normal){
+  :root{
+      font-family:InterVariable,sans-serif
+  }
+}
+body{
+  background-color:#21242b;
+  color:#d6d0ce
+}
+
+svg{
+  fill:url(#mygradient)
+}
+
+.main-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100rem;
+}
+
+
+.services-container{
+
+  margin:auto;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap
+}
+.service-item-container{
+  min-height:5rem;
+  color:#d6d0ce;
+  background-color:#282c34;
+  display:flex;
+  flex-direction:row;
+  margin:0.625rem ;
+  align-items:center;
+  border-radius:5px;
+  flex:calc(80% / 4);
+}
+
+.service-item-container:hover{
+  background-color: #2b2e35;
+}
+
+.service-item{
+  margin-right:0.313rem;
+  display:flex;
+  flex-direction:column
+  
+}
+.service-subitem{
+  display:flex;
+  flex-grow:1;
+  flex-direction:column
+}
+.service-icon{
+  margin-left:1rem;
+  margin-right:1rem;
+  height:2.5rem;
+  width:2.5rem
+}
+.service-title{
+  font-size:1rem
+}
+.service-subtitle{
+  font-size:.75rem
+}
+
+.service-status-title{
+  font-size:.85rem
+}
+
+.service-status-right{
+  margin-left:auto;
+  margin-right: 1rem;
+}
+
+.service-status{
+  margin-left:auto;
+  margin-right:auto
+}
+
+/* Mobile tweaks */
+@media (max-width: 1024px) {
+
+.service-container {
+flex-direction: column;
+}
+
+.services-container {
+flex-direction: column;
+width: 100%;
+margin: none;
+}
+
+.bookmarks-container {
+flex-direction: column;
+}
+
+}
+
+
+
 /* Icon gradient color */
 #mygradient stop.start-color {
   stop-color: {{app_config['icon-gradient-start-color']}};
@@ -90,85 +198,8 @@ a {
   
 }
 
-.service-card {
-  color: {{app_config['service-text-color']}};
-  text-decoration: none;
-  display: flex;
-  min-height: 70px;
 
 
-  /* You can change the online green color and side here */
-  border-radius: {{app_config['service-card-border-radius']}}px;
-  
-  border-top: none;
-  border-left: none;
-    
-  border-bottom: none;
-  padding: 15px;
- 
-  background-color: {{app_config['service-card-background-color']}};
-  margin: 10px;
-  flex: calc(80% / {{app_config["max-items-per-row"]}});
-  transition: transform 0.3s ease-in-out;
- 
- 
-}
-
-.service-icon {
-  float: left;
-  width: 35px;
-  height: 35px;
-}
-
-
-
-.player-icon {
- 
-  float: right;
-  width: 35px;
-  margin-left: auto;
- 
-}
-
-
-.service-card-titles {
-  
- margin-left: 50px;
- text-align: left;
-  height: 40px;
- 
- display: flex;
-  justify-content: center;
- flex-direction: column;
-}
-
-
-
-.service-card-title {
-  flex: 1;
-  font-size: .875rem;
-}
-
-.service-card-subtitle {
-  flex: 1;
-    font-size: .75rem;  
-}
-.service-card:hover {
-  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-}
-
-
-
-
-/* inter related css */
-
-:root {
-    font-family: Inter, sans-serif;
-    font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
-  }
-  @supports (font-variation-settings: normal) {
-    :root { font-family: InterVariable, sans-serif; }
-  }
 
 
 /* search box styling*/
@@ -198,48 +229,3 @@ a {
   }
  
 /* theming */
-
-body {
-    background-color: {{app_config['main-background-color']}};
-    
-    color: {{app_config['main-text-color']}};
-}
-
-.main-container {
-  width: 80%;
-  margin: auto;
- 
-}
-
-
-/* Placeholder SVG for the icon gradient */
-svg {
-  fill: url(#mygradient);
-}
-
-/* Mobile tweaks */
-@media (max-width: 1024px) {
-
-  .service-container {
-    flex-direction: column;
-  }
-  .bookmarks-container {
-    flex-direction: column;
-  }
-  .main-container {
-    width: 100%;
-    margin: none;
-   
-  }
-}
-
-/* Mobile tweaks */
-@media (max-width: 1500px) {
-  
-  .main-container {
-    width: 100%;
-    margin: none;
-   
-  }
-}
-
