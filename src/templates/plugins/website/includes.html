@@ -1,1 +1,35 @@
 <link href="static/plugins/website/css/style.css" rel="stylesheet">
+<script>
+
+    function runWebsitePlugin(id) {
+        let element = document.getElementById(id);
+
+        const category = element.getAttribute("category")
+        const interval = element.getAttribute("interval")    
+
+        async function pingService(){
+            console.log("Pinging")
+            try {
+                const req = await fetch(`/website/status?id=${id}&category=${category}`)
+
+                if(req.status === 200){
+                    element.classList.remove("website-red");    
+                    element.classList.add("website-green");     
+
+                } else{
+                    element.classList.remove("website-green");    
+                    element.classList.add("website-red");
+
+                }
+                console.log(req)
+            } catch (error) {
+                console.log(error)
+                element.classList.add("website-red");
+            }
+        }
+
+        pingService()
+        setInterval(pingService, interval);
+    }
+
+</script>
