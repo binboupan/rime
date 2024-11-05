@@ -44,7 +44,7 @@ uvicorn app:app --port 8095 --reload --reload-include *.yaml
 ```
 
 **Docker Compose:**
-Add configuraiton files to src/config and run:
+Add configuration files to src/config and run:
 
 ```
 docker compose up
