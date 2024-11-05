@@ -12,7 +12,5 @@ RUN pip install --no-cache-dir -r dependencies.txt
 
 # Make port 8080 available to the world outside this container
 
-
-
 # Run app.py when the container launches
-CMD ["uvicorn", "app:app", "--reload", "--reload-include", "*.yaml", "--port", "8085"]
+CMD ["uvicorn", "app:app", "--reload", "--reload-include", "*.yaml", "--port", "8085", "--host", "0.0.0.0"]

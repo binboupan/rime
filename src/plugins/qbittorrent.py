@@ -48,9 +48,9 @@ class WebsitePlugin(Plugin):
 
                 for torrent in info:
                     if torrent["state"] in ["stalledUP", "uploading"]:
-                        state["seeding"] =+ 1
+                        state["seeding"] = state["seeding"] + 1
                     elif torrent["state"] in ["downloading", "stalledDL"]:
-                        state["downloading"] =+ 1
+                        state["downloading"] = state["downloading"] + 1
 
                 state["dl_speed"] = round(speed_info["dl_info_speed"] / 1024 / 1024, 1)
                 state["ul_speed"] = round(speed_info["up_info_speed"] / 1024 / 1024, 1)

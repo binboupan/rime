@@ -1,18 +1,18 @@
 <script>
-    // http://localhost:8090/website/status?id=1
+
     let element_{{service}} = document.getElementById("website_{{service}}");
     async function pingService_{{service}}(){
         console.log("Pinging")
         try {
-            const req = await fetch("/qbittorrent/status?id={{service}}&category={{category}}")
+            const req = await fetch("/jellyfin/status?id={{service}}&category={{category}}")
             
             if(req.status === 200){
-                const data_{{service}} = await req.json()
+                const data_{{service}} = await req.json();
 
-                document.getElementById("qbittorrent-downloading").innerHTML = '<span class="mdi mdi-download">&nbsp;' + `${data_{{service}}.downloading}`;
-                document.getElementById("qbittorrent-uploading").innerHTML = '<span class="mdi mdi-upload">&nbsp;' + `${data_{{service}}.seeding}`;
-                document.getElementById("qbittorrent-dlspeed").innerHTML = '<span class="mdi mdi-arrow-down">&nbsp;' + `${data_{{service}}.dl_speed}` + "MB/s";
-                document.getElementById("qbittorrent-ulspeed").innerHTML = '<span class="mdi mdi-arrow-up">&nbsp;' + `${data_{{service}}.ul_speed}` + " MB/s";
+                document.getElementById("jellyfin-moviecount").innerHTML = '<span class="mdi mdi-movie">&nbsp;' + `${data_{{service}}.MovieCount}`;
+                document.getElementById("jellyfin-seriescount").innerHTML = '<span class="mdi mdi-television">&nbsp;' + `${data_{{service}}.SeriesCount}`;
+                document.getElementById("jellyfin-songcount").innerHTML = '<span class="mdi mdi-music">&nbsp;' + `${data_{{service}}.SongCount}`;
+                document.getElementById("jellyfin-albumcount").innerHTML = '<span class="mdi mdi-album">&nbsp;' + `${data_{{service}}.AlbumCount}`;
                 
                 
                     // + "<p>" + blocked_count + " (" + blocked_percentage +  `%)</p>` ;

@@ -34,6 +34,8 @@ svg{
   flex-wrap:wrap
 }
 .service-item-container{
+  padding-left: 1rem;
+  padding-right: 1rem;
   min-height:5rem;
   color:#d6d0ce;
   background-color:#282c34;
@@ -58,10 +60,10 @@ svg{
 .service-subitem{
   display:flex;
   flex-grow:1;
+  margin-bottom: 4px;
   flex-direction:column
 }
-.service-icon{
-  margin-left:1rem;
+.service-icon{  
   margin-right:1rem;
   height:2.5rem;
   width:2.5rem
@@ -83,6 +85,7 @@ svg{
 }
 
 .service-status{
+  margin-bottom: 4px;
   margin-left:auto;
   margin-right:auto
 }

@@ -17,11 +17,16 @@ Pull requests **are** welcome!
 
 ## Currently available plugins
 - Website status checker
-- Web radio player
+- Web radio player (Supports Shoutcast and Icecast)
+- Jellyfin Stats
+- qBitTorrent Stats
+- PiHole Stats
+- Adguard Home Stats
+- Bookmarks
 
 ## Getting Started
 
-Edit the yaml files in the config folder as you see fit!
+An example service configuration file is provided at src/config/services.yaml
 
 
 **Python:**
@@ -38,11 +43,19 @@ uvicorn app:app --port 8095 --reload --reload-include *.yaml
 
 ```
 
+**Docker Compose:**
+Add configuraiton files to src/config and run:
+
+```
+docker compose up
+
+```
+
 ## Roadmap
-- Bookmarks
-- Theming
+- Theming  
+- Proper documentation
 
 ## External dependencies
 
 Main font used is the [Inter](https://rsms.me/inter/) font.
-Using [Simple Icons](https://simpleicons.org/) for the card icons.
+Using [Simple Icons](https://simpleicons.org/) and [Material Design Icons](https://pictogrammers.com/library/mdi/) for the card icons.

@@ -24,6 +24,14 @@ Services:
         url: "https://adguard"
         interval: 60
         icon: "adguard"
+    jellyfin:
+        plugin: jellyfin
+        api-key: "apikey"
+        name: "Jellyfin"
+        subtitle: "Movie Server"
+        url: "https://jellyfin"
+        interval: 60
+        icon: "jellyfin"
 
 Second Category:
     radio:
