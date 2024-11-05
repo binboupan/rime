@@ -32,6 +32,15 @@ Services:
         url: "https://jellyfin"
         interval: 60
         icon: "jellyfin"
+    qbittorrent:
+        plugin: qbittorrent
+        # api key is based64 of username:password
+        api-key: ""
+        name: "qBitTorrent"
+        subtitle: "BitTorrent Client"
+        url: "https://qbittorrent"
+        interval: 60
+        icon: "qbittorrent"
 
 Second Category:
     radio:
