@@ -55,6 +55,20 @@ docker compose up
 - Theming  
 - Proper documentation
 
+## Writing Plugins
+The "website" plugin is a good template for your plugin.  
+
+The main plugin lives in src/plugins/website.py. It's supposed to handle background tasks, such as if you need to query an API without leaking the API keys to the frontend.
+See src/templates/plugins/website for templates  
+  
+includes.html includes Javascript code, which has to be included only once.  
+plugin_footer.html includes Javascript code, such as setting up timers  
+plugin_widget.html contains the code for the widget itself
+  
+static/plugins/website constains include css and js files for the plugin (such as an external dependency and extra styling)  
+
+
+
 ## External dependencies
 
 Main font used is the [Inter](https://rsms.me/inter/) font.
