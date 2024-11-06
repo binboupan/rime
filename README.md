@@ -53,6 +53,7 @@ docker compose up
 
 ## Roadmap
 - Theming  
+- Support alternative search engines
 - Proper documentation
 
 ## Writing Plugins

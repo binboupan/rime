@@ -2,7 +2,7 @@
   
 <head>
     <title>{{app_config["title"]}}</title>
-  
+<link id="favicon" rel="icon" type="image/x-icon" href="static/favicon.ico">  
    <style>
     {% include 'default.css' %}
    </style>
@@ -43,7 +43,13 @@
             <input type="submit" style="display: none;">
          </div>
         </form>
-  
+        {% if app_config["alert-text"] != "" %}
+        <div class="alert {{app_config["alert-type"]}}">
+          <span class="closebtn">&times;</span>  
+          <strong>{{app_config["alert-text"]}}</strong> 
+        </div>
+        {% endif %}
+
         {% for category in config %}
         <div class="service-category-title"><h1>{{ category }}</h1></div>
             <div class="services-container">
