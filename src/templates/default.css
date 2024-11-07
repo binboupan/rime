@@ -181,12 +181,11 @@ flex-direction: column;
 
 .bookmark-icon {
   
-  align-items: center;
-  justify-items: center;
-
-  float: left;
   width: 20px;
   height: 20px;
+
+
+
 
 }
 
