@@ -1,26 +1,53 @@
+<a class="service-item-container" id="website_{{service}}"  href="{{config[category][service]['url']}}">
+    <div class="service-item service-icon">
+        <div class="service-subitem">
+            {%- include "icons/"+ config[category][service]['icon'] +".svg" -%}
+        </div>
+    </div>
+    
+    <div class="service-item">
+        <div class="service-subitem service-title">
+            {{config[category][service]['name']}}
+        </div>
+        <div class="service-subitem service-subtitle">
+            {{config[category][service]['subtitle']}}
+        </div>
+    </div>
+    <div class="service-item service-status-right">
 
-    <a id="website_{{service}}" href="{{config[category][service]['url']}}/admin" class="service-card">
-        
-        <div class="service-card-wrapper" >
-            <div class="service-icon">
-                {%- include "icons/"+ config[category][service]['icon'] +".svg" -%}
+        <div class="service-subitem service-status-title">
+
+            <div id="pihole-allowedtext" style="margin-bottom: 4px;">
+                
             </div>
-        
-            <div class="service-card-titles">
-                <div class="service-card-title">{{config[category][service]['name']}}</div>
-                <div class="service-card-subtitle">{{config[category][service]['subtitle']}}</div>
+            <div id="pihole-blockedtext" style="margin-bottom: 4px;">
+                
             </div>
+
+
         </div>
-        <div class="pihole-titles">
-            <div class="pihole-subtitle"> 
-                <div class="pihole-blocked">
-                    <svg style="margin-bottom:1px;" xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 20 20"><path fill="currentColor" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10s4.477 10 10 10s10-4.477 10-10m-2 0a8 8 0 0 1-12.906 6.32L16.32 5.094A7.97 7.97 0 0 1 18 10m-3.094-6.32L3.68 14.906A8 8 0 0 1 14.906 3.68"/></svg>
-                </div>
-                <div id="pihole_{{service}}" class="pihole-blocked">
-                    
-                </div>
+
+        
+
+    </div>
+
+    <div class="service-item ">
+
+        <div class="service-subitem service-status-title">
+
+            <div id="pihole-allowedpercentage" style="margin-bottom: 4px;">
+                
             </div>
+            <div id="pihole-blockedpercentage"style="margin-bottom: 4px;" >
+                
+            </div>
+
+
         </div>
-        <!-- <div id="pihole_{{service}}" class="pihole-stats"></div> -->
+
+        
+
+    </div>
 
     </a>
+

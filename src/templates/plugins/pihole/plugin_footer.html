@@ -1,5 +1,5 @@
 <script>
-    // http://localhost:8090/website/status?id=1
+
     let element_{{service}} = document.getElementById("website_{{service}}");
     async function pingService_{{service}}(){
         console.log("Pinging")
@@ -9,8 +9,15 @@
             if(req.status === 200){
                 const data_{{service}} = await req.json()
                 console.log(data_{{service}})
+                
 
-                document.getElementById("pihole_{{service}}").innerHTML = `${data_{{service}}.ads_blocked_today} (${data_{{service}}.ads_percentage_today.toFixed(1)}%)`;
+                let blocked_count = `${data_{{service}}.ads_blocked_today}`
+                let blocked_percentage = Number.parseFloat(`${data_{{service}}.ads_percentage_today}`).toFixed(1)
+
+                
+                document.getElementById("pihole-blockedtext").innerHTML = '<span class="mdi mdi-block-helper">&nbsp;' + blocked_count;
+                document.getElementById("pihole-blockedpercentage").innerHTML = '(' +blocked_percentage +  '%)';
+                
                 element_{{service}}.classList.remove("website-red");    
                 element_{{service}}.classList.add("website-green");     
                 

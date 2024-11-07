@@ -1,1 +1,46 @@
-<link href="static/plugins/adguardhome/css/style.css" rel="stylesheet">
+<script>
+
+    function runAdguardPlugin(id) {
+        let element = document.getElementById(id);
+        const category = element.getAttribute("category")
+        const interval = element.getAttribute("interval")    
+
+        async function pingAdguard(){
+            console.log("Pinging")
+            try {
+                const req = await fetch(`/adguardhome/status?id=${id}&category=${category}`)
+                if(req.status === 200){
+                    const data_{{service}} = await req.json()
+                    console.log(data_{{service}})
+
+                    let allowed_count = (`${data_{{service}}.num_dns_queries}` - `${data_{{service}}.num_blocked_filtering}`)
+                    let allowed_percentage = (allowed_count / `${data_{{service}}.num_dns_queries}` * 100).toFixed(1)
+
+
+                    let blocked_count = `${data_{{service}}.num_blocked_filtering}`
+                    let blocked_percentage = (`${data_{{service}}.num_blocked_filtering}` / `${data_{{service}}.num_dns_queries}` * 100).toFixed(1)
+
+                    document.getElementById("adguard-allowedtext").innerHTML = '<span class="mdi mdi-check-bold">&nbsp;' + allowed_count;
+                    document.getElementById("adguard-blockedtext").innerHTML = '<span class="mdi mdi-block-helper">&nbsp;' + blocked_count;
+                    document.getElementById("adguard-allowedpercentage").innerHTML = '(' + allowed_percentage +  '%)';
+                    document.getElementById("adguard-blockedpercentage").innerHTML = '(' +blocked_percentage +  '%)';
+
+                    element.classList.remove("website-red");    
+                    element.classList.add("website-green");     
+                } else{
+                    element.classList.remove("website-green");    
+                    element.classList.add("website-red");
+
+                }
+                console.log(req)
+            } catch (error) {
+                console.log(error)
+                element.classList.add("website-red");
+            }
+        }
+
+        pingAdguard()
+        setInterval(pingAdguard, interval);
+    }
+
+</script>

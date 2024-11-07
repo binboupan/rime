@@ -34,7 +34,6 @@ class WebsitePlugin(Plugin):
                 dl_info_req = session.post(config[category][id]["url"]+"/api/v2/transfer/info", cookies={"SID": auth_token})
                 info_req = session.post(config[category][id]["url"]+"/api/v2/torrents/info", cookies={"SID": auth_token})
 
-
                 state = {
                     "downloading": 0,
                     "seeding": 0,

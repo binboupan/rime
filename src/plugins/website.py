@@ -1,19 +1,6 @@
 # Simple endpoint, which checks if a website is live or not
 
-"""
-Creating plugins:
-Replace "website" with the plugin name.
 
-See src/templates/plugins/website for templates
-
-includes.html includes Javascript code, which has to be included only once.
-plugin_footer.html includes Javascript code, such as setting up timers
-plugin_widget contains the code for the widget
-
-static/plugins/website constains include css and js files for the plugin (such as an external dependency)
-
-
-"""
 
 from fastapi import FastAPI, APIRouter, Body, status
 import requests

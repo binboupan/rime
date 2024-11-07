@@ -1,5 +1,5 @@
-<a class="service-item-container" id="website_{{service}}"  href="{{config[category][service]['url']}}">
-        <div class="service-item service-icon">
+<a class="service-item-container" category="{{category}}" interval="{{config[category][service]['interval']*1000}}" id="{{service}}" href="{{config[category][service]['url']}}">
+    <div class="service-item service-icon">
             <div class="service-subitem">
                 {%- include "icons/"+ config[category][service]['icon'] +".svg" -%}
             </div>
