@@ -73,4 +73,4 @@ static/plugins/website constains include css and js files for the plugin (such a
 ## External dependencies
 
 Main font used is the [Inter](https://rsms.me/inter/) font.
-Using [Simple Icons](https://simpleicons.org/) and [Material Design Icons](https://pictogrammers.com/library/mdi/) for the card icons.
+Using [Simple Icons](https://simpleicons.org/) and [Material Design Icons](https://github.com/marella/material-design-icons) for the card icons.

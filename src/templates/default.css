@@ -40,6 +40,8 @@ body{
 }
 
 svg{
+  max-width: 2.5rem;
+  max-height: 2.5rem;
   fill:url(#mygradient)
 }
 
@@ -90,7 +92,7 @@ svg{
 .service-icon{  
   margin-right:1rem;
   height:2.5rem;
-  width:2.5rem
+  width:2.5rem;
 }
 .service-title{
   font-size:1rem

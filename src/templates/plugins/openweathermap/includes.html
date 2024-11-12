@@ -1,0 +1,46 @@
+<script>
+
+    function runWeatherPlugin(id) {
+        let element = document.getElementById(id);
+
+        const category = element.getAttribute("category")
+        const interval = element.getAttribute("interval")    
+
+        async function pingService(){
+            console.log("Pinging")
+            try {
+                const req = await fetch(`/openweathermap/status?id=${id}&category=${category}`)
+                let data_{{service}} = await req.json();
+                let description = `${data_{{service}}.weather[0].description}`
+                let capitalized_description = description.charAt(0).toUpperCase() + description.slice(1)
+                let temperature_val = `${data_{{service}}.main.temp}`
+
+                if(req.status === 200){
+                    document.getElementById("weather-locationname").innerHTML =  `${data_{{service}}.name}`;
+                    document.getElementById("weather-description").innerHTML = capitalized_description ;
+                    document.getElementById("weather-temperature").innerHTML =  `<span class="mdi mdi-thermometer">&nbsp;` + Number(temperature_val).toFixed(1) +" °C";
+                    document.getElementById("weather-humidity").innerHTML = '<span class="mdi mdi-water-percent">&nbsp;' + `${data_{{service}}.main.humidity}` + " %" ;
+                    
+                        // <img src="https://openweathermap.org/img/wn/10d@2x.png">
+                    document.getElementById("weather-icon").innerHTML = '<img height=40 width=40 src="https://openweathermap.org/img/wn/' + `${data_{{service}}.weather[0].icon}` + '@2x.png">' ;
+                    
+                    element.classList.remove("website-red");    
+                    element.classList.add("website-green");     
+
+                } else{
+                    element.classList.remove("website-green");    
+                    element.classList.add("website-red");
+
+                }
+                console.log(req)
+            } catch (error) {
+                console.log(error)
+                element.classList.add("website-red");
+            }
+        }
+
+        pingService()
+        setInterval(pingService, interval);
+    }
+
+</script>

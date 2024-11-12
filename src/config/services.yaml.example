@@ -6,7 +6,7 @@ Services:
         url: "https://github.com"
         ping_url: "https://github.com"
         interval: 60
-        icon: "github"
+        icon: "simple-icons/github"
     pihole:
         plugin: pihole
         name: "Pi-hole"
@@ -14,7 +14,7 @@ Services:
         subtitle: "Ad Blocker"
         url: "https://pi.hole"
         interval: 60
-        icon: "pihole"
+        icon: "simple-icons/pihole"
     adguardhome:
         plugin: adguardhome
         name: "Adguard Home"
@@ -23,7 +23,7 @@ Services:
         api-key: "base64 string"
         url: "https://adguard"
         interval: 60
-        icon: "adguard"
+        icon: "simple-icons/adguard"
     jellyfin:
         plugin: jellyfin
         api-key: "apikey"
@@ -31,7 +31,7 @@ Services:
         subtitle: "Movie Server"
         url: "https://jellyfin"
         interval: 60
-        icon: "jellyfin"
+        icon: "simple-icons/jellyfin"
     qbittorrent:
         plugin: qbittorrent
         # api key is based64 of username:password
@@ -40,11 +40,11 @@ Services:
         subtitle: "BitTorrent Client"
         url: "https://qbittorrent"
         interval: 60
-        icon: "qbittorrent"
+        icon: "simple-icons/qbittorrent"
 
 Second Category:
     radio:
         plugin: icecast
         name: "Radio Station"
-        icon: "podcastindex"
+        icon: "simple-icons/podcastindex"
         url: "https://dsmrad.io/stream/isics-all"
