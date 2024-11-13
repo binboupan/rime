@@ -161,8 +161,8 @@ flex-direction: column;
   flex-direction: row;
   color: {{app_config['bookmark-text-color']}};
   text-decoration: none;
-  min-height: 30px;
-  max-height: 30px;
+  min-height: 34px;
+  max-height: 34px;
   border-radius: 5px;
   padding: 0px;
   background-color: {{app_config['bookmark-background-color']}};
@@ -178,6 +178,8 @@ flex-direction: column;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   padding: 5px;
+  height: 34px;
+  padding-bottom: 10px;
  
 }
 

@@ -20,7 +20,9 @@
                     document.getElementById("weather-description").innerHTML = capitalized_description ;
                     document.getElementById("weather-temperature").innerHTML =  `<span class="mdi mdi-thermometer">&nbsp;` + Number(temperature_val).toFixed(1) +" °C";
                     document.getElementById("weather-humidity").innerHTML = '<span class="mdi mdi-water-percent">&nbsp;' + `${data_{{service}}.main.humidity}` + " %" ;
-                    
+                    document.getElementById("weather-wind-speed").innerHTML = '<span class="mdi mdi-weather-windy">&nbsp;' + `${data_{{service}}.wind.speed}` + " m/s" ;
+                    document.getElementById("weather-clouds").innerHTML = '<span class="mdi mdi-cloud">&nbsp;' + `${data_{{service}}.clouds.all}` + " %" ;
+
                         // <img src="https://openweathermap.org/img/wn/10d@2x.png">
                     document.getElementById("weather-icon").innerHTML = '<img height=40 width=40 src="https://openweathermap.org/img/wn/' + `${data_{{service}}.weather[0].icon}` + '@2x.png">' ;
                     

@@ -1,4 +1,12 @@
 Services:
+    weather:
+        api-key: api-key
+        lat: 60.73769
+        lon: 24.77726
+        icon: material-icons/sunny-fill
+        interval: 1800
+        plugin: openweathermap
+        url: url
     github:
         plugin: website
         name: "Github"
