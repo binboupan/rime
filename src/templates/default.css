@@ -70,7 +70,7 @@ svg{
   margin:0.625rem ;
   align-items:center;
   border-radius:5px;
-  flex:calc(80% / 4);
+  flex:calc(80% /  {{app_config['max-items-per-row']}});
 }
 
 .service-item-container:hover{
