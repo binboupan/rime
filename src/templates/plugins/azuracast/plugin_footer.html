@@ -1,0 +1,40 @@
+<script>
+
+
+function runAzuracastPlugin(id) {
+        let element = document.getElementById(id);
+
+        const category = element.getAttribute("category")
+        const interval = element.getAttribute("interval")    
+
+        async function azuracastService(){
+            console.log("Checking now playing information")
+            try {
+                const req = await fetch(`/azuracast/status?id=${id}&category=${category}`)
+                
+                
+                
+                if(req.status === 200){
+                    const data_{{service}} = await req.json()
+                    document.getElementById("{{service}}_now-playing").innerHTML = `${data_{{service}}.now_playing}`;
+                    element.classList.remove("website-red");    
+                    element.classList.add("website-green");     
+
+                } else{
+                    element.classList.remove("website-green");    
+                    element.classList.add("website-red");
+
+                }
+                console.log(req)
+            } catch (error) {
+                console.log(error)
+                element.classList.add("website-red");
+            }
+        }
+
+        azuracastService()
+        setInterval(azuracastService, interval);
+    }
+    
+runAzuracastPlugin("{{service}}")
+</script>

@@ -1,0 +1,23 @@
+
+<a class="service-item-container" category="{{category}}" interval="{{config[category][service]['interval']*1000}}" id="{{service}}" href="{{config[category][service]['url']}}">
+    <div class="service-item service-icon">
+        <div class="service-subitem">
+            {%- include "icons/"+ config[category][service]['icon'] +".svg" -%}
+        </div>
+    </div>
+    
+    <div class="service-item">
+        <div class="service-subitem service-title">
+            {{config[category][service]['name']}}
+        </div>
+        <div class="service-subitem service-subtitle">
+            <div id="{{service}}_now-playing">
+                {{config[category][service]['subtitle']}}
+            </div>
+           
+        </div>
+    </div>
+  
+</a>
+
+
