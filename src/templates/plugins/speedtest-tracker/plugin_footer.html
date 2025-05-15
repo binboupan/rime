@@ -1,0 +1,39 @@
+<script>
+
+    let element_{{service}} = document.getElementById("website_{{service}}");
+    async function pingService_{{service}}(){
+        console.log("Pinging")
+        try {
+            const req = await fetch("/speedtest-tracker/status?id={{service}}&category={{category}}")
+            
+            if(req.status === 200){
+                const data_{{service}} = await req.json();
+
+                document.getElementById("speedtest-downloadspeed").innerHTML = '<span class="mdi mdi-download">&nbsp;' + `${data_{{service}}.data.download_bits_human}`;
+                document.getElementById("speedtest-uploadspeed").innerHTML = '<span class="mdi mdi-upload">&nbsp;' + `${data_{{service}}.data.upload_bits_human}`;
+                document.getElementById("speedtest-latency").innerHTML = '<span class="mdi mdi-signal-distance-variant">&nbsp;' + `${data_{{service}}.data.data.ping.latency.toFixed(1)}` +' ms';
+                document.getElementById("speedtest-jitter").innerHTML = '<span class="mdi mdi-sawtooth-wave">&nbsp;' + `${data_{{service}}.data.data.ping.jitter}` + " ms";
+                
+                
+                    // + "<p>" + blocked_count + " (" + blocked_percentage +  `%)</p>` ;
+                
+                element_{{service}}.classList.remove("website-red");    
+                element_{{service}}.classList.add("website-green");     
+                
+            } else{
+                element_{{service}}.classList.remove("website-green");    
+                element_{{service}}.classList.add("website-red");
+
+            }
+            console.log(req)
+        } catch (error) {
+            console.log(error)
+            element_{{service}}.classList.add("website-red");
+        }
+    }
+
+    console.log(element_{{service}})
+    pingService_{{service}}()
+    setInterval(pingService_{{service}}, {{config[category][service]['interval']*1000}})
+    
+</script>

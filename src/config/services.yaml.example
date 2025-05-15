@@ -49,6 +49,15 @@ Services:
         url: "https://qbittorrent"
         interval: 60
         icon: "simple-icons/qbittorrent"
+    speedtest:
+        icon: simple-icons/speedtest
+        interval: 60
+        name: Speedtest Tracker
+        ping_url: https://speedtest
+        plugin: speedtest-tracker
+        subtitle: Speed Test
+        api-key: apikey
+        url: https://speedtest
 
 Second Category:
     radio:
