@@ -16,7 +16,7 @@ import base64
 
 #from database.database import get_plugin_config
 
-class SpeedtestTrackerPlugin(Plugin):
+class MinecraftServerPlugin(Plugin):
     def register(self, app: FastAPI):
         print("Load plugin: Minecraft server stats")
         router = APIRouter()
